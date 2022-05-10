@@ -37,7 +37,7 @@ public class DatasetService {
     @Transactional
     public void insertInDatabase() {
         List<DatasetDto> datasetDtos = getDataset();
-        if (datasetRepository.count() == 0 && datasetDtos != null) {
+        if (datasetRepository.count() == 0) {
             log.info(String.valueOf(datasetDtos.size()));
             saveAll(datasetDtos);
 
