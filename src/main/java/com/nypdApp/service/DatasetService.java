@@ -72,7 +72,8 @@ public class DatasetService {
     }
 
     public Map<Integer, List<DatasetDto>> findAllOffensesGroupedBy() {
-        return findAllOffenses().stream().collect(groupingBy(DatasetDto::getKyCd));
+        return findAllOffenses().stream()
+                .collect(groupingBy(DatasetDto::getKyCd));
     }
 
     private List<DatasetDto> getDataset() {

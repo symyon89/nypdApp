@@ -7,11 +7,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+import org.springframework.data.domain.Sort;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -24,7 +30,7 @@ class DatasetServiceTest {
     @Mock
     DatasetRepository datasetRepository;
 
-    @Spy
+    @Mock
     ModelMapper mapper;
 
     @InjectMocks
@@ -79,9 +85,26 @@ class DatasetServiceTest {
 
     @Test
     void findAllOffenses() {
+        datasetService.findAllOffenses();
+        verify(datasetRepository).findAll(Sort.by(Sort.Direction.ASC, "kyCd"));
     }
 
     @Test
     void findAllOffensesGroupedBy() {
+        DatasetDto datasetDto = new DatasetDto();
+        datasetDto.setCmplntNum(123L);
+        datasetDto.setKyCd(123);
+
+        List<DatasetDto> datasetDtos = List.of(datasetDto);
+
+        Dataset dataset = new Dataset();
+        dataset.setCmplntNum(123L);
+        dataset.setKyCd(123);
+
+        List<Dataset> datasets = List.of(dataset);
+
+        when(datasetService.findAllOffenses()).thenReturn(datasetDtos);
+        Map<Integer, List<DatasetDto>> result = datasetService.findAllOffensesGroupedBy();
+        assertEquals(result.size(),1);
     }
 }
