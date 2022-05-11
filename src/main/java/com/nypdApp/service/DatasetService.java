@@ -82,7 +82,7 @@ public class DatasetService {
                 .onStatus(HttpStatus::is4xxClientError, clientResponse -> Mono.error(new ServerErrorException("Error 400 from NYPD Server")))
                 .onStatus(HttpStatus::is5xxServerError, clientResponse -> Mono.error(new ServerErrorException("Error 500 from NYPD Server")))
                 .bodyToFlux(DatasetDto.class)
-                .takeLast(100)
+                .takeLast(1000)
                 .collectList()
                 .block();
     }
