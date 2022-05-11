@@ -42,6 +42,8 @@ class DatasetServiceTest {
 
     @Test
     void findAll() {
+        datasetService.findAll();
+        verify(datasetRepository).findAll();
     }
 
     @Test
