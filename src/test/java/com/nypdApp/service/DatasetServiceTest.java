@@ -1,6 +1,7 @@
 package com.nypdApp.service;
 
 import com.nypdApp.dto.DatasetDto;
+import com.nypdApp.model.Dataset;
 import com.nypdApp.repository.DatasetRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,8 +13,9 @@ import org.modelmapper.ModelMapper;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -47,11 +49,32 @@ class DatasetServiceTest {
     }
 
     @Test
-    void deleteById() {
+    void deleteById_returns_false() {
+        boolean expectedResult = false;
+        boolean result = datasetService.deleteById(123L);
+        assertEquals(result,expectedResult);
+    }
+    @Test
+    void deleteById_returns_true() {
+        when(datasetRepository.existsById(123L)).thenReturn(true);
+        boolean expectedResult = true;
+        boolean result = datasetService.deleteById(123L);
+        assertEquals(result,expectedResult);
     }
 
     @Test
     void save() {
+        DatasetDto datasetDto = new DatasetDto();
+        datasetDto.setCmplntNum(123L);
+        datasetDto.setKyCd(123);
+
+        Dataset returnedDataset = new Dataset();
+        returnedDataset.setCmplntNum(123L);
+        returnedDataset.setKyCd(123);
+
+        when(datasetRepository.save(any())).thenReturn(returnedDataset);
+        datasetService.save(datasetDto);
+        verify(datasetRepository).save(any());
     }
 
     @Test

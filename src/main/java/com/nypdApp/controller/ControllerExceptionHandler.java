@@ -21,11 +21,6 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 @RestControllerAdvice
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(ServerErrorException.class)
-    public ResponseEntity<Object> handleCustomerServerErrorException(ServerErrorException e) {
-        return new ResponseEntity<>(e.getMessage(), BAD_REQUEST);
-    }
-
     @Value
     private static class FieldErrorJson implements Comparable<FieldErrorJson> {
 
