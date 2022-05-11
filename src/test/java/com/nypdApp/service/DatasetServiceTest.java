@@ -93,12 +93,6 @@ class DatasetServiceTest {
 
         List<DatasetDto> datasetDtos = List.of(datasetDto);
 
-        Dataset dataset = new Dataset();
-        dataset.setCmplntNum(123L);
-        dataset.setKyCd(123);
-
-        List<Dataset> datasets = List.of(dataset);
-
         when(datasetService.findAllOffenses()).thenReturn(datasetDtos);
         Map<Integer, List<DatasetDto>> result = datasetService.findAllOffensesGroupedBy();
         assertEquals(result.size(),1);
