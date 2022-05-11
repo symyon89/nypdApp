@@ -47,8 +47,8 @@ public class DatasetDto {
 
     @JsonProperty("ky_cd")
     @Schema(required = true, description = "Three digit offense classification code", example = "195")
-    @Min(value = 100,message = "number must be beetween 100 and 999")
-    @Max(value = 999, message = "number must be beetween 100 and 999")
+    @Min(value = 100,message = "value of ky_cd must be beetween 100 and 999")
+    @Max(value = 999, message = "value of ky_cd must be beetween 100 and 999")
     @NotNull(message = "value of ky_cd must not be null")
     private Integer kyCd;
 
